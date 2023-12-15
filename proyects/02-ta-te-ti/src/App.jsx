@@ -9,8 +9,15 @@ import { WinnerModal } from './components/WinnerModal.jsx'
 const board = Array(9).fill(null) // con 9 posiciones y fill  para rellenar
 
 function App() {
-  const [board, setBoard] = useState(Array(9).fill(null)) // con 9 posiciones y fill  para rellenar
-  const [turn, setTurn] =useState(TURNS.X)
+  const [board, setBoard] = useState(() =>{
+    const boardFromLocalStorage = window.localStorage.getItem('board')
+    return boardFromLocalStorage? JSON.parse(boardFromLocalStorage):Array(9).fill(null) // con 9 posiciones y fill  para rellenar
+  })
+    const [turn, setTurn] =useState(()=>{
+      const turnFromLocalStorage = window.localStorage.getItem('turn')
+
+      return turnFromLocalStorage?? TURNS.X})
+
   const [winner, setWinner]=useState(null)
 
   const checkWinner= (boardToCheck) => {
@@ -27,6 +34,8 @@ function App() {
     setBoard(Array(9).fill(null))
     setWinner(null)
     setTurn(TURNS.X)
+    window.localStorage.removeItem('board')
+    window.localStorage.removeItem('turn')
   }
 
   const checkEndGame = (newBoard) =>{
@@ -43,6 +52,10 @@ function App() {
     //cambio de turno cuando hacer click
     const newTurn = turn === TURNS.X ? TURNS.O: TURNS.X
     setTurn(newTurn)
+     //guardar partida en locastorage
+     window.localStorage.setItem('board', JSON.stringify(newBoard))
+     window.localStorage.setItem('turn', newTurn)
+     //revisa si hay ganador
     const newWinner =  checkWinner(newBoard)
     if(newWinner){
       confetti()
