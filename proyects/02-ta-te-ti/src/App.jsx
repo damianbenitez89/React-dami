@@ -6,7 +6,6 @@ import { TURNS, WIINER_COMBOS} from './enums.js'
 import { Square } from './components/Square.jsx'
 import { WinnerModal } from './components/WinnerModal.jsx'
 
-const board = Array(9).fill(null) // con 9 posiciones y fill  para rellenar
 
 function App() {
   const [board, setBoard] = useState(() =>{
@@ -96,7 +95,7 @@ function App() {
           {TURNS.O}
         </Square>
       </section>
-      <WinnerModal resetGame={resetGame} winner={winner}/>  
+      <WinnerModal resetGame={resetGame} winner={winner}/>
     </main>
   )
 }
