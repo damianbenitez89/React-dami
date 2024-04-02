@@ -1,12 +1,10 @@
 import './App.css'
-import MiBoton from './components/MiBoton'
-
+import ContadorClaseDa from './components/ContadorClaseDa'
 
 function App() {
-  let texto ="lorem"
   return (
     <>
-      <MiBoton texto={texto}/>
+      <ContadorClaseDa />
     </>
   )
 }
